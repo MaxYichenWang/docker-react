@@ -4,7 +4,7 @@ WORKDIR '/app'
 COPY package.json .
 RUN npm install
 COPY . .
-CMD ["npm", "run", "build"]
+RUN npm run build
 
 # Step 2: Copy build files from the output of Step 1 and start nginx
 FROM nginx
