@@ -1,0 +1,22 @@
+version: "3"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    # Main difference between using ":" and not:
+    # use ":" you are creating a host-mounted volume, which maps a directory on the host to a directory in the container, 
+    # don't use ":" you are creating a named volume, which is created and managed by Docker and is independent of the host file system.
+    volumes:
+      - /app/node_modules
+      - .:/app
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
